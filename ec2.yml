@@ -39,6 +39,14 @@
             - proto: all
               cidr_ip: 0.0.0.0/0
         register: basic_firewall
+ 
+    ### Create Amazon EC2 key pair
+      - name: Amazon EC2 | Create Key Pair
+        ec2_key:
+          name: "{{ keypair }}"
+          region: "{{ region }}"
+          key_material: "{{ item }}"
+        with_file: ~/.keys/ec2-ansible.pem
 
       - name: Launch the new EC2 Instance
         local_action: ec2 
